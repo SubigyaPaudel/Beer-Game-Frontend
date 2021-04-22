@@ -1,0 +1,23 @@
+table {
+    margin: 2%;
+    width: inherit;
+    height: 325px;
+    overflow-y: scroll;
+    display: block;
+    margin: auto auto auto auto;
+  }
+  
+  table,
+  th,
+  td {
+    border: 1px solid black;
+    background-color: white;
+    border-collapse: collapse;
+    width: max-content;
+    color: black;
+  }
+  
+  td {
+    text-align: center;
+  }
+  

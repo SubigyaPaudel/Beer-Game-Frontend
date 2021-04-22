@@ -1,0 +1,11 @@
+#accordion {
+  width: 80%;
+  opacity: 0.9;
+  height: fit-content;
+  background-color: gray;
+  padding: 20px;
+}
+
+#accordion button {
+  margin: 5px;
+}

@@ -1,0 +1,8 @@
+#options {
+  position: absolute;
+  right: 2%;
+}
+
+#navbar {
+  z-index: 99;
+}

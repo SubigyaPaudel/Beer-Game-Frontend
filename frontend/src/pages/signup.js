@@ -1,0 +1,15 @@
+import React from 'react'
+import SignUp from '../components/Signup'
+
+/**
+ * Returns the Sign Up Page for Host
+ */
+const SignupPage = () => {
+    return (
+        <div>
+            <SignUp />
+        </div>
+    )
+}
+
+export default SignupPage

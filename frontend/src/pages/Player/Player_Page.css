@@ -1,0 +1,15 @@
+body {
+  background-image: url("./beers.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  overflow-x: hidden;
+  overflow-y: initial;
+}
+
+#contents {
+  position: relative;
+  margin-left: 5%;
+  margin-top: 7%;
+  width: 90%;
+}

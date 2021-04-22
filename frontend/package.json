@@ -1,0 +1,61 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "*",
+    "@testing-library/react": "*",
+    "@testing-library/user-event": "*",
+    "adapter": "^1.0.0-beta.10",
+    "axios": "*",
+    "bootstrap": "^4.6.0",
+    "chart.js": "^3.1.1",
+    "enzyme": "^3.11.0",
+    "jsdoc": "*",
+    "react": "*",
+    "react-bootstrap": "^1.5.2",
+    "react-chartjs-2": "^3.0.2",
+    "react-dom": "*",
+    "react-icons": "*",
+    "react-native": "^0.64.0",
+    "react-redux": "*",
+    "react-router-bootstrap": "*",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "*",
+    "react-scroll": "*",
+    "react-validation": "*",
+    "redux-devtools-extension": "*",
+    "redux-thunk": "*",
+    "styled-components": "*",
+    "validator": "*",
+    "web-vitals": "*"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "doc": "jsdoc -c jsdoc.json"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1"
+  }
+}

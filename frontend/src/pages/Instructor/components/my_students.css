@@ -1,0 +1,22 @@
+#mystudents div {
+  padding: 10px;
+  margin: 5px;
+}
+
+#mystudents ol {
+  padding: 10px;
+}
+
+.student {
+  margin: 10px;
+}
+
+li button {
+  float: right;
+}
+
+li span {
+  margin-left: 10px;
+  margin-right: 10px;
+  height: fit-content;
+}
