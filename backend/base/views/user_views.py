@@ -9,9 +9,12 @@ from base.serializers import (
     PlayerSerializer,
     UserSignUpSerializer,
     UserLoginSerializer,
+    GameSerializer,
+    GameCreateSerializer,
+    DemandPatternSerializer,
 )
 
-from base.models import User, Instructor, Player
+from base.models import User, Instructor, Player, DemandPattern, Game
 
 class UserSignUpView(APIView):
     serializer_class = UserSignUpSerializer
@@ -137,3 +140,193 @@ class AuthUserProfileView(APIView):
             }
 
         return Response(response, status=status_code)
+
+class AuthGameListView(APIView):
+    queryset = Game.objects.all()
+    serializer_class = GameSerializer
+    permission_classes = (IsAuthenticated,)
+
+    # GET request handler
+    def get(self, request,format=None):
+        # Temporary data needed
+
+        user = request.user
+        status_code = status.HTTP_200_OK
+        message = ''
+
+        if user.role == 1:
+            # Retrieve all games on the platform
+            serializer = 1
+
+            message = 'Successfully fetched the games!'
+            status_code = status.HTTP_200_OK
+
+            # Set games to custom serializer
+        if user.role == 2:
+            # Retrieve all games that the instructor is owner of
+            serializer = 2
+            message = 'Successfully fetched instructor\'s games!'
+            status_code = status.HTTP_200_OK
+
+            # Set games to custom serializer
+        else:
+            # Retrieve all games that the player is part of
+            serializer = 3
+
+            message = 'Successfully fetched player\'s games!'
+            status_code = status.HTTP_200_OK
+
+            # Set games to custom serializer
+
+        response = {
+            'success': True,
+            'statusCode': status_code,
+            'message': message
+            # 'games': serializer.data
+        }
+
+        return Response(response, status=status_code)
+
+    ##Creating a Game
+    def post(self,request):
+        user = request.user
+        status_code = status.HTTP_200_OK
+        message = ''    
+        if user.role == 2 or user.role == 1:
+            serializer = self.serializer_class(data=request.data)
+            is_valid = serializer.is_valid(raise_exception=True)
+
+            if is_valid:
+                # Save serializer state
+                serializer.save()
+                # Set the code to successful creation procedure
+                status_code = status.HTTP_201_CREATED
+
+                # Object accepted by the Response() call
+                response = {
+                    'success': True,
+                    'statusCode': status_code,
+                    'message': 'Game Created Successfully!',
+                }
+                user.games_managing.append(f'{serializer.data.uid} ')
+                # Instantiate response object and send it back with code 201
+                return Response(response, status=status_code)
+        else:
+            status_code = status.HTTP_401_UNAUTHORIZED
+            response = {
+                    'success': False,
+                    'statusCode': status_code,
+                    'message': 'Only Instrutctors can create games',
+                }
+            return Response(response,status=status_code)
+
+class JoinGameView(APIView):
+    ## Modifying game
+    serializer_class = GameSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        gameobj = self.get_object(pk)
+        user = request.user
+        status_code = status.HTTP_200_OK
+        message = '' 
+
+        if user.role == 3:
+            serializer = self.serializer_class(data=request.data)            
+            is_valid = serializer.is_valid(raise_exception=True)
+
+            if is_valid:
+                # Save serializer state
+                Players = serializer.data.get('player')
+                uid = serializer.data.get('uid')
+                status_code = status.HTTP_201_CREATED
+                Player.append(f'{user.uid} ')
+                # Object accepted by the Response() call
+                response = {
+                    'success': True,
+                    'statusCode': status_code,
+                    'message': f'{user.username} added to the game {uid}',
+                }
+
+                # Instantiate response object and send it back with code 201
+                return Response(response, status=status_code)
+        else:
+            status_code = status.HTTP_401_UNAUTHORIZED
+            response = {
+                    'success': False,
+                    'statusCode': status_code,
+                    'message': 'Only players can play games',
+                }
+            return Response(response,status=status_code)
+
+class AuthDemandPatternView(APIView):
+    # queryset = DemandPattern.objects.all()
+    serializer_class = DemandPatternSerializer
+    permission_classes = (IsAuthenticated,)
+
+    # GET request handler
+    def get(self, request, format=None):
+        user = request.user
+        status_code = status.HTTP_200_OK
+        message=''
+        ##only admin and intructor can check demand patterns
+        if user.role == 1 or user.role == 2:
+            patterns = DemandPattern.objects
+            response = {
+                'success': True,
+                'statusCode': status_code,
+                'message': 'demand patterns fetched succesfully!',
+                'profile': {
+                    # 'uid',
+                    # 'instructor_id'
+                    # 'name',
+                    # 'weeks',
+                    # 'demand',
+                    # 'related_games'
+                }
+            }
+            return Response(response,status=status_code)
+        else:
+            status_code = status.HTTP_401_UNAUTHORIZED
+            response = {
+                    'success': False,
+                    'statusCode': status_code,
+                    'message': 'Only Instrutctors can check demmand patterns',
+                }
+            return Response(response,status=status_code)
+
+
+    # POST request handler
+    def post(self, request):
+        user = request.user
+        status_code = status.HTTP_200_OK
+        message=''
+        ##only admin and intructor can check demand patterns
+
+        if user.role == 1 or user.role == 2:
+            serializer = self.serializer_class(data=request.data)
+            is_valid = serializer.is_valid(raise_exception=True)
+
+            if is_valid:
+                # Save serializer state
+                serializer.save()
+                # Set the code to successful creation procedure
+                status_code = status.HTTP_201_CREATED
+
+                # Object accepted by the Response() call
+                response = {
+                    'success': True,
+                    'statusCode': status_code,
+                    'message': 'Demmand Pattern Created Successfully!',
+                }
+
+                # Instantiate response object and send it back with code 201
+                return Response(response, status=status_code)
+        else:
+            status_code = status.HTTP_401_UNAUTHORIZED
+            response = {
+                    'success': False,
+                    'statusCode': status_code,
+                    'message': 'Only Instructors can create demmand patterns',
+                }
+            return Response(response,status=status_code)

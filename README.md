@@ -75,7 +75,7 @@ cd backend
 python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py runserver
-````
+```
 
 ### Setup frontend
 
@@ -85,7 +85,7 @@ python3 manage.py runserver
 - Change into the `frontend` directory. Install the required packages.
 
 ````bash
-cd client
+cd frontend
 npm install --legacy-peer-deps --include=dev
 
 - Run the frontend.
@@ -102,13 +102,16 @@ npm run start
 Change into the `frontend` directory. Run the testing script.
 
 ```bash
-cd client
+cd frontend
 npm run test
 ```
 
 ### Run backend tests
 
-Testing has not yet been implemented for the backend.
+```bash
+cd backend
+python3 manage.py test
+```
 
 ---
 
@@ -119,7 +122,7 @@ Testing has not yet been implemented for the backend.
 Change into the `frontend` directory. Run the documentation script.
 
 ```bash
-cd client
+cd frontend
 npm run doc
 ```
 
@@ -130,7 +133,7 @@ Documentation can then be found at `client/docs/index.html`.
 Change into the `backend` directory. Run the backend.
 
 ```bash
-cd server
+cd backend
 python3 manage.py runserver
 ```
 

@@ -71,7 +71,7 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState(0);
+  const [role, setRole] = useState(2);
   const [successful, setSuccessful] = useState(false);
 
   const { message } = useSelector((state) => state.message);

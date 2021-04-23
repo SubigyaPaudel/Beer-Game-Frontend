@@ -3,7 +3,7 @@ from django.contrib.auth.models import update_last_login
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import User, Instructor, Player
+from .models import User, Instructor, Player, Game, DemandPattern
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -126,3 +126,68 @@ class UserLoginSerializer(serializers.Serializer):
         except User.DoesNotExist:
             raise serializers.ValidationError('Invalid credentials used!')
 
+class DemandPatternSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DemandPattern
+        fields = [
+            'instructor',
+            'name',
+            'weeks',
+            'demand',
+            'related_games',
+        ]
+
+class DemandPatternCreateSerializer(serializers.Serializer):
+    class Meta:
+        model = DemandPattern
+        fields = [
+            'instructor',
+            'name',
+            'weeks',
+            'demand',
+            'related_games',
+        ]
+
+    
+
+class GameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game
+        fields = [
+            'instructor',
+            'session_length',
+            'distributor_present',
+            'wholesaler_present',
+            'demandpattern',
+            'holding_cost',
+            'backlog_cost',
+            'active',
+            'info_sharing',
+            'info_delay',
+            'rounds_completed',
+            'is_default_game',
+            'starting_inventory',
+            'player_weeks',
+        ]
+
+class GameCreateSerializer(serializers.Serializer):
+    class Meta:
+        model = Game
+        fields = [
+            'session_length',
+            'distributor_present',
+            'wholesaler_present',
+            'demandpattern',
+            'holding_cost',
+            'backlog_cost',
+            'active',
+            'info_sharing',
+            'info_delay',
+            'rounds_completed',
+            'is_default_game',
+            'starting_inventory',
+            'player_weeks',
+        ]
+
+    def create(self, validated_data):
+        pass
