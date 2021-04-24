@@ -9,12 +9,15 @@ import {
 import { useHistory, useRouteMatch } from "react-router-dom";
 import "./player_navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../actions/userActions";
 
 const Player_Navbar = () => {
   const history = useHistory();
   const {url, path} = useRouteMatch();
-  const logout = () => {
-    console.log("Logging out");
+  const dispatch = useDispatch();
+  const locallogout = () => {
+    dispatch(logout());
     history.push("/");
   };
   return (
@@ -36,7 +39,7 @@ const Player_Navbar = () => {
           >
             <NavDropdown.Item>Suggestions</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+            <NavDropdown.Item onClick={locallogout}>Logout</NavDropdown.Item>
           </NavDropdown>
         </Nav>
         <Form inline>

@@ -41,12 +41,15 @@ const Gamepage = ({ toggle }) => {
   const [playersStatus, setplayersStatus] = useState(null);
   const [nextround, setNextRound] = useState(null);
   const [success, setSuccess] = useState(null);
-
+  const [order, setOrder] = useState(null);
+  
   const hierarchy = ['retailer', 'wholesaler', 'distributor', 'factory'];
 
   // SECTION: DUMMY DATA
 
-  //fake data fetched from the API for testing
+  //fake data fetched from the API for testing, make sure that 
+  //you make api calls to receive the following data, and the
+  //data is retrieved in the same format
   let past_data = {
     my_role: "wholesaler",
     game_number: "0101",
@@ -229,6 +232,7 @@ const Gamepage = ({ toggle }) => {
     } else {
       setinputerrormsg(null);
       setSuccess("Your Submission status has been noted by the server.");
+      setOrder(input);
       //make the api call and submit this week's order here
     }
   };
@@ -319,7 +323,7 @@ const Gamepage = ({ toggle }) => {
                   <Pagetext>Ending Inventory:</Pagetext>
                   <Pagetext>
                     Enter the number of units to be purchased from upstreamer:
-                    <input
+                    {!success && <input
                       type="number"
                       min="0"
                       step="1"
@@ -327,7 +331,18 @@ const Gamepage = ({ toggle }) => {
                       name="demand"
                       id="demand"
                       required
-                    />
+                    />}
+                    {success && <input
+                      type="number"
+                      min="0"
+                      step="1"
+                      placeholder="demand"
+                      name="demand"
+                      id="demand"
+                      disabled
+                      value = {order}
+                      required
+                    />}
                     {inputerrormsg && (
                       <span style={{ color: "red" }}>{inputerrormsg}</span>
                     )}
@@ -340,9 +355,12 @@ const Gamepage = ({ toggle }) => {
                         position: "absolute",
                       }}
                     >
-                      <Button smooth={true} alt="" onClick={handleSubmit}>
+                      {!success && <Button smooth={true} alt="" onClick={handleSubmit}>
                         Submit
-                      </Button>
+                      </Button>}
+                      {success && <Button smooth={true} alt="" onClick={handleSubmit} disabled>
+                        Submit
+                      </Button>}
                       <Button smooth={true} onClick={handleQuit}>
                         Quit Game
                       </Button>

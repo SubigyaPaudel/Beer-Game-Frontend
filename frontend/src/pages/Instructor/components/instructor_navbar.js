@@ -6,17 +6,19 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import "./instructor_navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { logout } from "../../../actions/userActions";
 
 const Instructor_Navbar = ({ server_domain }) => {
-  const {url, path} = useRouteMatch();
+  const { url, path } = useRouteMatch();
   const history = useHistory();
-  const logout = () => {
-    console.log("Logging out");
-    history.push("/sign_out");
+  const dispatch = useDispatch();
+  const locallogout = () => {
+    dispatch(logout());
+    history.push('/');
   };
   return (
     <Navbar bg="light" href="/instructor" expand="lg" fixed="top" id="navbar">
@@ -33,7 +35,7 @@ const Instructor_Navbar = ({ server_domain }) => {
           <NavDropdown title="Options" id="basic-nav-dropdown">
             <NavDropdown.Item>Suggestions</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+            <NavDropdown.Item onClick={locallogout}>Logout</NavDropdown.Item>
           </NavDropdown>
         </Nav>
         <Form inline>

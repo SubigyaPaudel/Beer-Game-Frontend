@@ -1,13 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Redirect } from "react-router-dom";
 import Logo from '../../images/beer-box.png'
 
 // Retrieve validators
-
 import CheckButton from "react-validation/build/button";
-
 // Retrieve login action
 import { login } from "../../actions/userActions";
 
@@ -55,9 +53,9 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.message);
-
+ 
   const dispatch = useDispatch();
 
   // Update email on state
@@ -87,8 +85,7 @@ const Login = (props) => {
       /**  Trigger state change with login*/
       dispatch(login(email, password))
         .then(() => {
-          props.history.push("/profile");
-          window.location.reload();
+          console.log(user);
         })
         .catch(() => {
           setLoading(false);
@@ -100,7 +97,15 @@ const Login = (props) => {
 
   /** Redirect user to home on successful login */
   if (isLoggedIn) {
-    return <Redirect to="/" />;
+    let role = user.authenticatedUser.role;
+    if(role === '2'){
+      return <Redirect to = '/instructor'/>
+    }else if(role === '3'){
+      return <Redirect to = '/player'/>
+    }else{
+      return <Redirect to = '/'/> 
+    }
+    // return <Redirect to="/" />;
   }
 
   return (
@@ -134,22 +139,13 @@ const Login = (props) => {
                 placeholder="Enter password"
               />
 
-              <TextLink to="/construction">Forgot Password?</TextLink>
-              <FormInput
-                type="text"
-                name="gameID"
-                validations={[required]}
-                placeholder="Enter Game ID"
-                id="gameid1"
-              />
-
               <FormButton disabled={loading} type="submit" id="signinbutton">
                 {loading && (
                   <span className="spinner-border spinner-border-sm"></span>
                 )}
                 <span>Log In</span>
               </FormButton>
-              <TextLink to="/construction">Forgot Password?</TextLink>
+              {/* <TextLink to="/construction">Forgot Password?</TextLink> */}
 
               {message && (
                 <div className="form-group">

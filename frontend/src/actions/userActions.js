@@ -20,7 +20,7 @@ export const signup = (username, email, password, role) => (dispatch) => {
             dispatch({
                 type: SIGNUP_SUCCESS,
             });
-
+            console.log(response.text());
             dispatch({
                 type: SET_MESSAGE,
                 payload: response.data.message,
@@ -87,7 +87,6 @@ export const login = (username, password) => (dispatch) => {
 */
 export const logout = () => (dispatch) => {
     AuthService.logout();
-
     dispatch({
         type: LOGOUT,
     });

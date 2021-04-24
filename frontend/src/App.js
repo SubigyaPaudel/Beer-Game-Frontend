@@ -13,6 +13,8 @@ import Scrolltotop from "./components/ScrolltoTop";
 import Player_Page from "./pages/Player/Player_Page";
 import Instructor_Page from "./pages/Instructor/Instructor_Page";
 import SignOut from './components/signout'
+import {useEffect} from 'react';
+import {useSelector} from 'react-redux';
 
 function App() {
   return (

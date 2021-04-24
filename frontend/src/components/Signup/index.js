@@ -1,9 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import {useHistory} from 'react-router-dom';
 
 import { signup } from "../../actions/userActions";
+import { setMessage } from '../../actions/message';
+
 import {
   Container,
   FormWrap,
@@ -68,6 +71,10 @@ const SignUp = () => {
   const form = useRef();
   const checkBtn = useRef();
 
+  let timeout_id = null;
+
+  const history = useHistory();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -97,6 +104,10 @@ const SignUp = () => {
     setRole(role);
   };
 
+  useEffect(() => {
+    return () => clearTimeout(timeout_id);
+  })
+
   const handleSignUp = (e) => {
     e.preventDefault();
 
@@ -108,6 +119,10 @@ const SignUp = () => {
       dispatch(signup(username, email, password, role))
         .then(() => {
           setSuccessful(true);
+            timeout_id = setTimeout(() => {
+              dispatch(setMessage(""))
+              history.push('/signin');
+            }, 2000) 
         })
         .catch(() => {
           setSuccessful(false);

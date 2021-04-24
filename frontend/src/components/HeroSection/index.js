@@ -41,13 +41,13 @@ const HeroSection = () => {
                 </HeroP>
                 <HeroBtnWrapper>
                     <Button 
-                    to="gamepage" 
+                    to="signin" 
                     onMouseEnter={onHover} 
                     onMouseLeave={onHover}
                     primary = 'true'
                     dark = 'true'
                     >
-                       Start Playing {hover ? <ArrowForward /> : <ArrowRight />}
+                       Sign In {hover ? <ArrowForward /> : <ArrowRight />}
                     </Button>
                 </HeroBtnWrapper>
             </HeroContent>

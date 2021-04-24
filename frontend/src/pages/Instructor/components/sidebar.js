@@ -1,11 +1,16 @@
 import "./sidebar.css";
 import { Link, useRouteMatch } from "react-router-dom";
+import { useEffect } from "react";
 
 const Sidebar = () => {
-  document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("sidebar").style.height = `${window.innerHeight}px`;
-  });
 
+  useEffect(() => {
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("sidebar").style.height = `${window.innerHeight}px`;
+    });
+  }, []);
+
+  
   function openNav() {
     console.log("hello");
     var sidebar = document.getElementById("sidebar");

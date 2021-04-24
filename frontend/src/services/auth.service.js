@@ -23,10 +23,10 @@ const login = (email, password) => {
     })
     .then((response) => {
       // Store user data on localStorage
-      if (response.data.accessToken) {
+      if (response.data.access) {
+        console.log('Response Data = ', response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
       }
-
       return response.data;
     });
 };
