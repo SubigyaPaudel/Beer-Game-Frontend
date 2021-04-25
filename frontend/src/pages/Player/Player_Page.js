@@ -41,7 +41,7 @@ const Player_Page = () => {
   if(!isLoggedIn){
     return <Redirect to = "/"/>
   }else if(user.authenticatedUser.role === '2'){
-    return <Redirect to = '/'/>
+    return <Redirect to = '/instructor'/>
   }else{
     return (
       <div className="player_page">

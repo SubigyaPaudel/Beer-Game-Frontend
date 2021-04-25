@@ -5,12 +5,9 @@ import { useEffect } from "react";
 const Sidebar = () => {
 
   useEffect(() => {
-    document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("sidebar").style.height = `${window.innerHeight}px`;
-    });
   }, []);
 
-  
   function openNav() {
     console.log("hello");
     var sidebar = document.getElementById("sidebar");
