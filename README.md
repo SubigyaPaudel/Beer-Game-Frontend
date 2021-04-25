@@ -79,7 +79,7 @@ sudo apt install python3.8 #install python3
 
 - Make sure you have python and python3-venv installed
 - Create a virtual environment using `venv` module. Activate the virtual environment and install the requirements for the backend.
-#
+
 ````bash
 python3 -m venv myenv
 source myenv/bin/activate
@@ -94,7 +94,7 @@ pip install -r requirements.txt
 cd mysql_setup
 mysql -u root -p 	# enter root database credentials
 mysql> source setup.sql;	#run the file for django's da
-mysql>> exit;
+mysql> exit;
 ````
 
 #### Making migrations
