@@ -126,13 +126,13 @@ npm install --legacy-peer-deps --include=dev
 - Make sure that you have properly followed the steps in [Setup Backend](#setup-backend) and Setup backend
 - Run the frontend
 ````bash
-> cd frontend
-> npm start
+cd frontend
+npm start
 ````
 - Run the backend
 ````bash
-> cd backend
-> python3 manage.py runserver
+cd backend
+python3 manage.py runserver
 ````
 - The frontend should ideally run at http://localhost:3000 and the backend django server should ideally run at http://127.0.0.1:8000. Ports can change if the ports were being used by other applications
 
