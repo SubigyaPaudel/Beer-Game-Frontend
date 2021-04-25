@@ -14,7 +14,7 @@
   - [Setup and Deployment](#setup-and-deployment)
     - [Setup backend](#setup-backend)
     - [Setup frontend](#setup-frontend)
-  - [Running the Application](#running-application)
+  - [Running the Application](#running-the-application)
   - [Tests](#tests)
     - [Run frontend tests](#run-frontend-tests)
     - [Run backend tests](#run-backend-tests)
@@ -23,9 +23,9 @@
     - [Generate backend documentation](#generate-backend-documentation)
   - [Individual contributions](#individual-contributions)
     - [Sprint 1 - 9/3/2021](#sprint-1---932021)
-    - [Sprint 2](#sprint2)
-    - [Sprint 3](#sprint3)
-    - [Sprint 4](#sprint4)
+    - [Sprint 2](#sprint-2)
+    - [Sprint 3](#sprint-3)
+    - [Sprint 4](#sprint-4)
 
 <!-- /TOC -->
 
