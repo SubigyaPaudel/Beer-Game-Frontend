@@ -38,7 +38,11 @@ const Player_Page = () => {
     //contact redux and check whether the user is authenticated or not, if they are
     //then allow them to proceed, if not redirect them to the landing page
   }, [path]);
-
+  if(!isLoggedIn){
+    return <Redirect to = "/"/>
+  }else if(user.authenticatedUser.role === '2'){
+    return <Redirect to = '/'/>
+  }else{
     return (
       <div className="player_page">
         <Sidebar />
@@ -66,6 +70,8 @@ const Player_Page = () => {
         </div>
       </div>
     );
+  }
+    
 };
 
 export default Player_Page;
