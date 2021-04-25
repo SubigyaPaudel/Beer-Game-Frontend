@@ -67,11 +67,10 @@ Software requirements have already been explained in first assignment but, again
 - For linux users
 
 ````bash
-> sudo apt update
-
-sudo apt install mysql-server #install mysql
-sudo mysql_secure_installation #setup root credentials
-> sudo apt install python3.8 #install python3
+>> sudo apt update
+>> sudo apt install mysql-server #install mysql
+>> sudo mysql_secure_installation #setup root credentials
+>> sudo apt install python3.8 #install python3
 ````
 - For windows users: Donwload python 3 from the official website and for mysql, it is recommended to use the mysql server included in xampp.
 
@@ -92,12 +91,9 @@ pip install -r requirements.txt
 - Make sure that the database has the database, user and the permissions for django to create new tables. Run the mysql script setup.sql to do so.
 
 ````bash
->> cd mysql_setup
-
->> mysql -u root -p 	# enter root database credentials
-
+cd mysql_setup
+mysql -u root -p 	# enter root database credentials
 mysql> source setup.sql;	#run the file for django's da
-
 mysql>> exit;
 ````
 
@@ -235,6 +231,7 @@ Due to time limit, we have only developed basic testing with few test cases for 
 	- Fixed Sign Up page
 
 ## Sprint 4
+Contributors: Subigya Paudel and Nhan Dinh
 - Frontend
 	- Created more pages to be displayed when the user is signed up (as an instructor or as a player), managed the routing on these pages as well, so that logged in users 		are redirected to their respective pages.
 	- Made use of the authentication services immplmented in the last codebase to redirect users to appropriate signed-in pages
