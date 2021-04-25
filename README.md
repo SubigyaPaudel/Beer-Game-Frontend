@@ -14,6 +14,7 @@
   - [Setup and Deployment](#setup-and-deployment)
     - [Setup backend](#setup-backend)
     - [Setup frontend](#setup-frontend)
+  - [Running the Application](#running-application)
   - [Tests](#tests)
     - [Run frontend tests](#run-frontend-tests)
     - [Run backend tests](#run-backend-tests)
@@ -22,23 +23,26 @@
     - [Generate backend documentation](#generate-backend-documentation)
   - [Individual contributions](#individual-contributions)
     - [Sprint 1 - 9/3/2021](#sprint-1---932021)
+    - [Sprint 2](#sprint2)
+    - [Sprint 3](#sprint3)
+    - [Sprint 4](#sprint4)
 
 <!-- /TOC -->
 
 # Introduction
 
-This is the ReadMe.md for Sprint 01 Group 6 consisting of team members: Prashiddha Dhoj Thapa and Petri Gjoni.
+This is the ReadMe.md for Sprint 04 Group 6 consisting of team members: Subigya Paudel and Nhan Dinh
 
-Our main focus was to build the user interface and layout for the landing page. We decided to use React.js, along with styled-components for styling, because it is fast, scalable and simple. Furthermore, it also provides numerous packages to ease the process of web development. We have implemented the following packages: react-scroll, react-icon, and react-router-dom.
+The main objective of this sprint was to start working on the frontend and the backend aspects that are needed once the user signs in to the application. In addition to this, we also debugged the bug that we found on the odl code base including some tests. We also added more testing to the application (Both backend and frontend) and made the documentation more user-friendly. You can find more details about this sprint's immplementaion on the individual contribution section.
 
 # Software Requirements
 
 Software requirements have already been explained in first assignment but, again for convenience, a general overiew of our goal, what it offers and what it should also offer for the next sprint are:
 
 - The user can either be a host or a player.
-- A student is provided with a password from the host which they shall enter in the Log-In page for 'players'. They shall enter their display name and the password to join the respective beer game.
+- Students can sign up and log in, but they can only play games if an instructor adds them to a particular game.
 - The display name shouldn't contain special characters and doing so will throw an input error.
-- A host can select one of the available games to spectate and is provided with the current game settings and live analytics.
+- A instructor can select one of the available games to spectate and is provided with the current game settings and live analytics.
 - To host a game, the user must register an account using the Sign Up page.
 - Once the game starts, the player screen is split up in 4 quadrants with each quadrant serving a specific purpose.
 - The user will be able to access “What it is” and “How to Play” sections for additional information regarding the supply-chain game.
@@ -49,13 +53,34 @@ Software requirements have already been explained in first assignment but, again
 | -------------- | --------------------- |
 | Database       | MySQL                 |
 | Backend        | Python with Django    |
-| Frontend       | React.js              |
+| Frontend       | React.js/Redux        |
 | Communication  | REST API architecture |
 | Authentication | JSON Web Tokens (JWT) |
 
 # Setup and Deployment
 
 ### Setup backend
+
+#### Prerequisites
+
+- Make sure that you have python 3 and mysql server installed in your machine. 
+- For linux users
+
+````bash
+> sudo apt update
+
+> sudo apt install mysql-server
+(install mysql)
+> sudo mysql_secure_installation
+(setup the root user's credentials)
+
+> sudo apt install python3.8
+(install python 3)
+````
+- For windows users: Donwload python 3 from the official website and for mysql, it is recommended to use the mysql server included in xampp.
+
+
+#### Creating virtual environment and installing backend dependencies
 
 - Make sure you have python and python3-venv installed
 - Create a virtual environment using `venv` module. Activate the virtual environment and install the requirements for the backend.
@@ -65,8 +90,24 @@ python3 -m venv myenv
 source myenv/bin/activate
 pip install wheel                           # Compatibility issues might arise
 pip install -r requirements.txt
+````
 
-- Update database credentials inside of `backend/backend/settings.py` (inside the DATABASE part) (or create new user and corresponding database)
+#### Setup database 
+- Make sure that the database has the database, user and the permissions for django to create new tables. Run the mysql script setup.sql to do so.
+
+````bash
+>cd mysql_setup
+
+>mysql -u root -p
+(Enter the root user's mysql credentials)
+
+mysql> source setup.sql;
+(Execute the script for django database setup)
+
+mysql>exit;
+````
+
+#### Making migrations
 
 - Change into the `backend` directory. Make migrations and migrate changes to the database. Run the backend.
 
@@ -88,12 +129,22 @@ python3 manage.py runserver
 cd frontend
 npm install --legacy-peer-deps --include=dev
 
-- Run the frontend.
-
-```bash
-npm run start
 ````
 
+## Running the application
+
+- Make sure that you have properly followed the steps in [Setup Backend](#setup-backend) and Setup backend
+- Run the frontend
+````bash
+> cd frontend
+> npm start
+````
+- Run the backend
+````bash
+> cd backend
+> python3 manage.py runserver
+````
+- The frontend should ideally run at http://localhost:3000 and the backend django server should ideally run at http://127.0.0.1:8000. Ports can change if the ports were being used by other applications
 
 ## Tests
 
@@ -103,7 +154,7 @@ Change into the `frontend` directory. Run the testing script.
 
 ```bash
 cd frontend
-npm run test
+npm test
 ```
 
 ### Run backend tests
@@ -137,7 +188,7 @@ cd backend
 python3 manage.py runserver
 ```
 
-The backend API documentation is served at endpoint `api/swagger/`.
+The backend API documentation is served at endpoint `api/swagger/` of the domain where the server is running.
 
 
 # Individual contribution
@@ -173,6 +224,35 @@ Tuan Pham and Mario Alberto Hernandez Salamanca
 	
 Due to time limit, we have only developed basic testing with few test cases for the components mentioned above. UI test cases and routing test cases are complex and can not be correctly tested without prior unification of both backend and frontend communication.
 
+## Sprint 3
+- Frontend
+	- Created Game Settings page, where instructor can change the settings of the game
+	- Created Costumizing Game page, where user can read about the changes they can do
+	- Created Learn More page, where user can read how the game is played
+	- Created Game page, where user can play the game
+	- Improved Sign In page 
+	- Fixed testing from the previous sprints for the following pages (since they were failing before): 
+		- configuration 
+		-  Hero Section 
+	- Implemented testing for the following pages:
+		- GameSettings
+		- CostumizingGames
+		- LearnMore
+	- Fixed Sign Up page
+
+## Sprint 4
+- Frontend
+	- Created more pages to be displayed when the user is signed up (as an instructor or as a player), managed the routing on these pages as well, so that logged in users 		are redirected to their respective pages.
+	- Made use of the authentication services immplmented in the last codebase to redirect users to appropriate signed-in pages
+	- Resolved a bug with the reducer. The data in the localstorage was not being taken into account while initializing the redux store.
+	- Took the game screen from the last sprint to its proper place in the page which players can access when they are logged in. Made this page more dynamic, as in being 		able to plot graphs for various quantities(demand, orders, and inventory). Added some support to the page for polling the server as to the status of the game that is 		being played.
+	- Resolved the failing test case for the sign_in component. 
+	- Added more test cases
+
+- Documentation
+	- Structured in the documentation. Made separate sections for setup and running the application to avoid confusion.
+	- Added file structure hierarchy, thereby making it easier for one to see what each folder is related to.
+
 
 # End User Documentation
 
@@ -194,19 +274,5 @@ Again, going with the theme of user-friendliness, all of the informations have b
 
 Individual login pages for Host and Player has been implemented since the only fixed login property for player is the password while the Host has fixed username and password. The Host a Game navigation button directs the user to Sign Up page which also consists of a navigation link to the 'Host' Sign In page (Already have an account?) on the Sign Up box. Finally, we have also implemented a Footer on the bottom of the landing page with sample links since we don't have enough pages implemented.
 
-## Sprint 3
-- Frontend
-	- Created Game Settings page, where instructor can change the settings of the game
-	- Created Costumizing Game page, where user can read about the changes they can do
-	- Created Learn More page, where user can read how the game is played
-	- Created Game page, where user can play the game
-	- Improved Sign In page 
-	- Fixed testing from the previous sprints for the following pages (since they were failing before): 
-		- configuration 
-		-  Hero Section 
-	- Implemented testing for the following pages:
-		- GameSettings
-		- CostumizingGames
-		- LearnMore
-	- Fixed Sign Up page
+
 
