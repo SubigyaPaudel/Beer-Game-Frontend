@@ -67,10 +67,10 @@ Software requirements have already been explained in first assignment but, again
 - For linux users
 
 ````bash
->> sudo apt update
->> sudo apt install mysql-server #install mysql
->> sudo mysql_secure_installation #setup root credentials
->> sudo apt install python3.8 #install python3
+sudo apt update
+sudo apt install mysql-server #install mysql
+sudo mysql_secure_installation #setup root credentials
+sudo apt install python3.8 #install python3
 ````
 - For windows users: Donwload python 3 from the official website and for mysql, it is recommended to use the mysql server included in xampp.
 
