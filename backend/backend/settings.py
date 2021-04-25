@@ -111,12 +111,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'beergame4',
         'USER': 'username',
-        'PASSWORD': 'password',
+        'PASSWORD': 'Pass@123456789',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'TEST':{
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'test.db',
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'test_beergame4',
+            'USER': 'username',
+            'PASSWORD': 'Pass@123456789',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
         }
     }
 }
