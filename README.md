@@ -69,13 +69,9 @@ Software requirements have already been explained in first assignment but, again
 ````bash
 > sudo apt update
 
-> sudo apt install mysql-server
-(install mysql)
-> sudo mysql_secure_installation
-(setup the root user's credentials)
-
-> sudo apt install python3.8
-(install python 3)
+sudo apt install mysql-server #install mysql
+sudo mysql_secure_installation #setup root credentials
+> sudo apt install python3.8 #install python3
 ````
 - For windows users: Donwload python 3 from the official website and for mysql, it is recommended to use the mysql server included in xampp.
 
@@ -84,7 +80,7 @@ Software requirements have already been explained in first assignment but, again
 
 - Make sure you have python and python3-venv installed
 - Create a virtual environment using `venv` module. Activate the virtual environment and install the requirements for the backend.
-
+#
 ````bash
 python3 -m venv myenv
 source myenv/bin/activate
@@ -96,15 +92,13 @@ pip install -r requirements.txt
 - Make sure that the database has the database, user and the permissions for django to create new tables. Run the mysql script setup.sql to do so.
 
 ````bash
->cd mysql_setup
+>> cd mysql_setup
 
->mysql -u root -p
-(Enter the root user's mysql credentials)
+>> mysql -u root -p 	# enter root database credentials
 
-mysql> source setup.sql;
-(Execute the script for django database setup)
+mysql> source setup.sql;	#run the file for django's da
 
-mysql>exit;
+mysql>> exit;
 ````
 
 #### Making migrations
