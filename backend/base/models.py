@@ -51,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Player(models.Model):
     uid = models.UUIDField(default=uuid.uuid4,
-                           editable=False, verbose_name='public_id')
+                           editable=False, verbose_name='public_id', primary_key=True)
     # Relationships
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='player')
@@ -72,7 +72,7 @@ class Player(models.Model):
 
 class Instructor(models.Model):
     uid = models.UUIDField(default=uuid.uuid4,
-                           editable=False, verbose_name='public_id')
+                           editable=False, verbose_name='public_id', primary_key=True)
     # Relationships
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='instructor')

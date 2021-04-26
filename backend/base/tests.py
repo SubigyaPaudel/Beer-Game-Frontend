@@ -9,7 +9,15 @@ from .serializers import GameSerializer, InstructorSerializer, PlayerSerializer,
 
 class UserSignUpTestCase(APITestCase):
 
-    def test_registration(self):
+    def setUp(self):
+        user = User.objects.create_user(email="test1@localhost.com", password= "testpassword", username="test")
+
+    def test_registration_exist_username(self):
+        data = {"username" : "test", "email": "test2@localhost.com", "password" : "testpassword", "role": 3}
+        reponse = self.client.post("/api/users/signup", data)
+        self.assertEqual(reponse.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_registration_new(self):
         data = {"username" : "testcase", "email": "test@localhost.com", "password" : "testpassword", "role": 3}
         response = self.client.post("/api/users/signup/", data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -31,6 +39,7 @@ class AuthGameListTestCase(APITestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(email="test2@localhost.com", password= "testpassword2")
+        self.instructor = Instructor.objects.create(user=self.user)
     
     #testing for unauthenticated user
     def test_unauth_gamelist(self):

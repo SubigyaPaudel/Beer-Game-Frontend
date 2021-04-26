@@ -10,7 +10,7 @@ from base.serializers import (
     UserSignUpSerializer,
     UserLoginSerializer,
     GameSerializer,
-    GameCreateSerializer,
+    # GameCreateSerializer,
     DemandPatternSerializer,
 )
 
@@ -82,7 +82,7 @@ class AuthUserProfileView(APIView):
 
     def get(self, request):
         response = dict()
-        status_code = HTTP_200_OK
+        status_code = status.HTTP_200_OK
 
         try:
             if request.user.role == 2:
@@ -97,12 +97,12 @@ class AuthUserProfileView(APIView):
                     'statusCode': status_code,
                     'message': 'Instructor profile fetched successfully!',
                     'profile': {
-                        # 'username': # Retrieve username from user
-                        # 'email': # Retrieve email from user
-                        # 'games_managing': instructor.games_managing
-                        # 'my_players': instructor.my_players,
-                        # 'my_plots': instructor.my_plots,
-                        # 'my_default_game': instructor.my_default_game
+                        'username': request.user.username,
+                        'email': request.user.email,
+                        'games_managing': instructor.games_managing,
+                        'my_players': instructor.my_players,
+                        'my_plots': instructor.my_plots,
+                        'my_default_game': instructor.my_default_game
                     }
                 }
             elif request.user.role == 3:
@@ -117,15 +117,15 @@ class AuthUserProfileView(APIView):
                     'statusCode': status_code,
                     'message': 'Player profile fetched successfully!',
                     'profile': {
-                        # 'username': # Retrieve username from user
-                        # 'email': # Retrieve email from user
-                        # 'allowed_games': player.allowed_games,
-                        # 'instructors': player.instructors,
-                        # 'current_game': player.current_game,
-                        # 'inventory': player.inventory,
-                        # 'backorder': player.backorder,
-                        # 'downstream_player': player.downstream_player,
-                        # 'upstream_player': player.upstream_player
+                        'username': request.user.username,
+                        'email': request.user.email,
+                        'allowed_games': player.allowed_games,
+                        'instructors': player.instructors,
+                        'current_game': player.current_game,
+                        'inventory': player.inventory,
+                        'backorder': player.backorder,
+                        'downstream_player': player.downstream_player,
+                        'upstream_player': player.upstream_player
                     }
                 }
 
@@ -142,7 +142,7 @@ class AuthUserProfileView(APIView):
         return Response(response, status=status_code)
 
 class AuthGameListView(APIView):
-    queryset = Game.objects.all()
+    # queryset = Game.objects.all()
     serializer_class = GameSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -153,6 +153,7 @@ class AuthGameListView(APIView):
         user = request.user
         status_code = status.HTTP_200_OK
         message = ''
+        gameList = None
 
         if user.role == 1:
             # Retrieve all games on the platform
@@ -165,6 +166,29 @@ class AuthGameListView(APIView):
         if user.role == 2:
             # Retrieve all games that the instructor is owner of
             serializer = 2
+            instructor = Instructor.objects.get(user=user)
+            games = Game.objects.filter(instructor=instructor)
+            if games:
+                gameList = []
+                for game in games:
+                    temp = {
+                        'session_length' : game.session_length,
+                        'distributor_present' : game.distributor_present,
+                        'wholesaler_present' : game.wholesaler_present,
+                        'holding_cost' : game.holding_cost,
+                        'backlog_cost' : game.backlog_cost,
+                        'active' : game.active,
+                        'info_sharing' : game.info_sharing,
+                        'info_delay' : game.info_delay,
+                        'rounds_completed' : game.rounds_completed,
+                        'is_default_game' : game.is_default_game, 
+                        'starting_inventory' : game.starting_inventory,
+                        'player_weeks' : game.player_weeks
+                    }
+                    gameList.append(temp)
+            else:
+                gameList = "There is currently no game"
+            
             message = 'Successfully fetched instructor\'s games!'
             status_code = status.HTTP_200_OK
 
@@ -181,8 +205,8 @@ class AuthGameListView(APIView):
         response = {
             'success': True,
             'statusCode': status_code,
-            'message': message
-            # 'games': serializer.data
+            'message': message,
+            'games': gameList
         }
 
         return Response(response, status=status_code)
@@ -192,7 +216,20 @@ class AuthGameListView(APIView):
         user = request.user
         status_code = status.HTTP_200_OK
         message = ''    
-        if user.role == 2 or user.role == 1:
+        if user.role == 2:
+            instructor = Instructor.objects.get(user=user)
+            request.data["instructor"] = instructor.uid
+            demandpatterns = DemandPattern.objects.filter(instructor=instructor)
+            
+            # flag = True
+            # if not demandpatterns:
+            #     flag = False
+            #     status_code = status.HTTP_400_BAD_REQUEST,
+            #     message = 'Need to create demand pattern before the game'
+            # else:
+            #     for demandpattern in demandpatterns:
+            #         if 
+            # the demand pattern id has to be provided in this data
             serializer = self.serializer_class(data=request.data)
             is_valid = serializer.is_valid(raise_exception=True)
 
@@ -208,7 +245,6 @@ class AuthGameListView(APIView):
                     'statusCode': status_code,
                     'message': 'Game Created Successfully!',
                 }
-                user.games_managing.append(f'{serializer.data.uid} ')
                 # Instantiate response object and send it back with code 201
                 return Response(response, status=status_code)
         else:
@@ -226,7 +262,7 @@ class JoinGameView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request):
-        gameobj = self.get_object(pk)
+        # gameobj = self.get_object(pk)
         user = request.user
         status_code = status.HTTP_200_OK
         message = '' 
@@ -270,20 +306,29 @@ class AuthDemandPatternView(APIView):
         status_code = status.HTTP_200_OK
         message=''
         ##only admin and intructor can check demand patterns
-        if user.role == 1 or user.role == 2:
-            patterns = DemandPattern.objects
+        if user.role == 2:
+            instructor = Instructor.objects.get(user=user)
+            patterns = DemandPattern.objects.filter(instructor=instructor)
+            if patterns:
+                profile = []
+                for pattern in patterns:
+                    temp = {
+                        'uid': pattern.uid,
+                        'instructor_id': instructor.uid,
+                        'name': pattern.name,
+                        'weeks': pattern.weeks,
+                        'demand': pattern.demand,
+                        'related_games': pattern.related_games
+                    }
+                    profile.append(temp)
+            else:
+                profile = "There is currently no demand pattern"
+            
             response = {
                 'success': True,
                 'statusCode': status_code,
                 'message': 'demand patterns fetched succesfully!',
-                'profile': {
-                    # 'uid',
-                    # 'instructor_id'
-                    # 'name',
-                    # 'weeks',
-                    # 'demand',
-                    # 'related_games'
-                }
+                'profile': profile
             }
             return Response(response,status=status_code)
         else:
@@ -301,9 +346,11 @@ class AuthDemandPatternView(APIView):
         user = request.user
         status_code = status.HTTP_200_OK
         message=''
-        ##only admin and intructor can check demand patterns
+        ##only intructor can check demand patterns
 
-        if user.role == 1 or user.role == 2:
+        if user.role == 2:
+            instructor = Instructor.objects.get(user=user)
+            request.data["instructor"] = instructor.uid
             serializer = self.serializer_class(data=request.data)
             is_valid = serializer.is_valid(raise_exception=True)
 
