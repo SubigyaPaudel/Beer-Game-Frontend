@@ -123,7 +123,7 @@ npm install --legacy-peer-deps --include=dev
 
 # Running the application
 
-- Make sure that you have properly followed the steps in [Setup Backend](#setup-backend) and Setup backend
+- Make sure that you have properly followed the steps in [Setup and deployment](#setup-and-deployment)
 - Run the frontend
 ````bash
 cd frontend
