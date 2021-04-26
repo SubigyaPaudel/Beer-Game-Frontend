@@ -60,8 +60,6 @@ Software requirements have already been explained in first assignment but, again
 
 # File Structure
 
-The work done in this sprint is located the beer_game directory and the mysql_setup directory. The old code base is simply the code base that we had inherited from the proevious sprint and can be used to compare the improvements made in this sprint
-
 <pre>
     <code>
       \- backend
