@@ -10,11 +10,11 @@ from .serializers import GameSerializer, InstructorSerializer, PlayerSerializer,
 class UserSignUpTestCase(APITestCase):
 
     def setUp(self):
-        user = User.objects.create_user(email="test1@localhost.com", password= "testpassword", username="test")
+        user = User.objects.create_user(email="test1@localhost.com", password= "testpassword", username="test", role = 3)
 
     def test_registration_exist_username(self):
-        data = {"username" : "test", "email": "test2@localhost.com", "password" : "testpassword", "role": 3}
-        reponse = self.client.post("/api/users/signup", data)
+        data = {"username" : "test", "email": "test1@localhost.com", "password" : "testpassword", "role": 3}
+        reponse = self.client.post("/api/users/signup/", data)
         self.assertEqual(reponse.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_registration_new(self):

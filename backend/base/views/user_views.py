@@ -43,6 +43,10 @@ class UserSignUpView(APIView):
             # Instantiate response object and send it back with code 201
             return Response(response, status=status_code)
 
+        #Just added this portion
+        else:
+            return Reponse(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+
 
 class UserLoginView(APIView):
     serializer_class = UserLoginSerializer
