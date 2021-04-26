@@ -99,11 +99,11 @@ mysql> exit;
 
 #### Making migrations
 
-- Change into the `backend` directory. Make migrations and migrate changes to the database. Run the backend.
+- Change into the `backend` directory. Make migrations and migrate changes to the database.
 
 ```bash
 cd backend
-python3 manage.py makemigrations base
+python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py runserver
 ```
