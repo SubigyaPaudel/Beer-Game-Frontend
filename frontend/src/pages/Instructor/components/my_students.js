@@ -2,6 +2,12 @@ import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import "./my_students.css";
 
+/**
+ * Component to render the information about a single student
+ * @param {data} param0 
+ * @returns {}
+ */
+
 const SingleStudent = ({ data }) => {
   return (
     <li class="student">
@@ -17,6 +23,13 @@ const SingleStudent = ({ data }) => {
     </li>
   );
 };
+
+/**
+ * Component that renders the information about all the students that are 
+ * affiliated to the instructor
+ * 
+ * @returns {}
+ */
 
 const MyStudents = () => {
   const [data, setData] = useState(null);

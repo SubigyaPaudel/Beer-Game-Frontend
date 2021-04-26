@@ -3,6 +3,12 @@ import { useEffect, useState } from "react";
 import { Accordion, Card, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
 
+/**
+ * Renders an card for a single game
+ * @param {data} param0 
+ * @returns {}
+ */
+
 const OneGame = ({ data }) => {
   const history = useHistory();
   const pause_this_game = (event) => {
@@ -185,6 +191,15 @@ var dummy_data = [
     },
   },
 ];
+
+/**
+ * The games component is the component that an instructor sees on the main
+ * page of their signed-in view. It shows all the games that he instrcutor is managing
+ * and provides them with an option to edit the parameters of these games or pause
+ * these games
+ * 
+ * @returns {} 
+ */
 
 const My_Games = () => {
   const [loading, setloading] = useState(true);

@@ -2,6 +2,10 @@ import "./sidebar.css";
 import { Link, useRouteMatch } from "react-router-dom";
 import { useEffect } from "react";
 
+
+/**
+ * Renders the sidebar for the instructor page
+ */
 const Sidebar = () => {
 
   useEffect(() => {

@@ -18,6 +18,11 @@ import { useEffect } from "react";
 
 const server_domain = "http://127.0.0.1:8000"; //change this if your django server runs at another address
 
+
+/**
+ * The main page of the player view. Handles all the routing within the player page
+ * changes the backgroung upon visit.
+ */
 const Player_Page = () => {
   const { url, path } = useRouteMatch();
   const { isLoggedIn, user } = useSelector((state) => state.auth);

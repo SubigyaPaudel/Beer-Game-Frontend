@@ -2,6 +2,12 @@ import { useState, useEffect } from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
+/**
+ * 
+ * @param {week_number} param0 
+ * @returns Input component which takes each week's demand
+ */
+
 const EachWeekInput = ({ week }) => {
   return (
     <InputGroup style={{ marginTop: "3px", marginBottom: "3px" }}>
@@ -17,6 +23,11 @@ const EachWeekInput = ({ week }) => {
     </InputGroup>
   );
 };
+
+/**
+ * Component to create demand patterns
+ * 
+ */
 
 const CreateDemandPattern = () => {
   const history = useHistory();

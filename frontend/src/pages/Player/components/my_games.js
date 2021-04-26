@@ -3,6 +3,11 @@ import { useEffect, useState } from "react";
 import { Accordion, Card, Button } from "react-bootstrap";
 import { useHistory, useRouteMatch } from "react-router";
 
+/**
+ * Renders information about a single game
+ * @param {data} Data_for_a_single_game 
+ */
+
 const OneGame = ({ data }) => {
   const history = useHistory();
   const {url, path} = useRouteMatch();

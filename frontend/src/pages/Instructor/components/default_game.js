@@ -5,6 +5,11 @@ import "./edit_game.css";
 
 //The first section is just composed of dummy data meant to be later retrieved from the server, you can ignore this part
 
+
+/**
+ * Form where the instructor can define his/her or default game paramters
+ * 
+ */
 const DefaultGame = () => {
   var local_students = [
     {

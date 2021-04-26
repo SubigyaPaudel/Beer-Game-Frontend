@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import "./my_instructors.css";
 
+/**
+ * Returns a component that displays information about a single instructor
+ * @param {data} data_for_a_single_instructor 
+ */
+
 const SingleInstructor = ({ data }) => {
   return (
     <li class="Instructor">
@@ -14,6 +19,11 @@ const SingleInstructor = ({ data }) => {
     </li>
   );
 };
+
+/**
+ * Returns a component that will render all the information about 
+ * instructors that a player is associated with
+ */
 
 const MyInstructors = () => {
   const [data, setData] = useState(null);

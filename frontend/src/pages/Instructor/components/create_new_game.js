@@ -5,6 +5,11 @@ import "./edit_game.css";
 
 //The first section is just composed of dummy data meant to be later retrieved from the server, you can ignore this part
 
+/**
+ * Component that creates a form to make a new game
+ * 
+ * @returns {} 
+ */
 const CreateNewGame = () => {
   var local_students = [
     {

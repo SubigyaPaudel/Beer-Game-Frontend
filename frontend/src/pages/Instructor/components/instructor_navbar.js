@@ -12,6 +12,12 @@ import "./instructor_navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { logout } from "../../../actions/userActions";
 
+/**
+ * Navigation bar in the instructor view
+ * @param {*} server_domain 
+ * @returns {}
+ */
+
 const Instructor_Navbar = ({ server_domain }) => {
   const { url, path } = useRouteMatch();
   const history = useHistory();

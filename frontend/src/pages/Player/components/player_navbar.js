@@ -12,6 +12,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../actions/userActions";
 
+/**
+ * Navigation bar for the player
+ */
+
 const Player_Navbar = () => {
   const history = useHistory();
   const {url, path} = useRouteMatch();

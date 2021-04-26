@@ -19,9 +19,13 @@ import { useSelector } from "react-redux";
 
 const server_domain = "http://127.0.0.1:8000"; //change this if your django server runs at another address
 
+/**
+ * The main page for the instructor view, handles the routing within the instructor view,
+ * changes the background upon visit
+ */
 const Instructor_Page = () => {
   const { url, path } = useRouteMatch();
-  const {isLoggedIn, user} = useSelector(state => state.auth);
+  const {isLoggedIn, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     var body = document.querySelector("body");

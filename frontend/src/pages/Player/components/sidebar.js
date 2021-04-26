@@ -2,6 +2,9 @@ import "./sidebar.css";
 import { Link, useRouteMatch } from "react-router-dom";
 import { useEffect } from "react";
 
+/**
+ * Sidebar for the player view
+ */
 const Sidebar = () => {
   useEffect(() => {
     document.getElementById("sidebar").style.height = `${window.innerHeight}px`;
