@@ -11,6 +11,7 @@
   - [Introduction](#introduction)
   - [Software requirements](#software-requirements)
   - [Architecture](#architecture)
+  - [File Structure](#file-structure)
   - [Setup and Deployment](#setup-and-deployment)
     - [Setup backend](#setup-backend)
     - [Setup frontend](#setup-frontend)
@@ -47,7 +48,7 @@ Software requirements have already been explained in first assignment but, again
 - Once the game starts, the player screen is split up in 4 quadrants with each quadrant serving a specific purpose.
 - The user will be able to access “What it is” and “How to Play” sections for additional information regarding the supply-chain game.
 
-## Architecture
+# Architecture
 
 | Component      | Implementation        |
 | -------------- | --------------------- |
@@ -56,6 +57,44 @@ Software requirements have already been explained in first assignment but, again
 | Frontend       | React.js/Redux        |
 | Communication  | REST API architecture |
 | Authentication | JSON Web Tokens (JWT) |
+
+
+# File Structure
+
+<pre>
+    <code>
+      \- backend
+      	\- backend (contains server information)
+	 	|- settings.py (contains information about which database the backend should user, cors headers, allowed hosts etc.)
+		|- urls.py (contains information about which routes are supposed to be handled by which applications)
+	\- base
+		|- managers.py (class used to create a custom django user model)
+		|- models.py (the orms/models that the backend uses are defined here)
+		|- serializers.py (the serializers that convert our models to json and perform validity checks are defined here)
+		|- test_general.py (contains backend tests)
+		\-urls
+			|- user_urls.py (delegates the handling of requests on specific routes to different views)
+		\- views
+			|- user_views.py (views that user_urls.py use are defined here)
+      \- frontend
+      	\- public (directory that contains the static files used by our react components/pages)
+	\- src (the source folder)
+		\- actions (contains all the redux action creators used by the frontend)
+		\- components (contains all the components used by the index/landing page of the application)
+		\- constants (contains application-wide constants like action names, and the API url)
+		\- images (contains all the images used by the landing page of the application)
+		\- reducers (contains the reducers used by the application. index.js exports the combined reducer)
+		\- services (contains functions that make api calls, and interact with the localstorage)
+		\- videos (contains the video used in the landing page of the application)
+		\- pages (the .js files used here are the pages used in the landing page of the application)
+			\- Instructor (Contains all the pages, tests and components related to the the instructor-signed-in view)
+			\- Player (Contains all the pages, tests and components related to the player-signed-in-view)
+      \- mysql-setup
+      \- requirements.txt (backend dependencies)
+      
+    </code>
+</pre>
+
 
 # Setup and Deployment
 
@@ -99,7 +138,7 @@ mysql> exit;
 
 #### Making migrations
 
-- Change into the `backend` directory. Make migrations and migrate changes to the database. Run the backend.
+- Change into the `backend` directory. Make migrations and migrate changes to the database.
 
 ```bash
 cd backend
@@ -123,7 +162,7 @@ npm install --legacy-peer-deps --include=dev
 
 # Running the application
 
-- Make sure that you have properly followed the steps in [Setup Backend](#setup-backend) and Setup backend
+- Make sure that you have properly followed the steps in [Setup and deployment](#setup-and-deployment)
 - Run the frontend
 ````bash
 cd frontend
@@ -240,30 +279,12 @@ Contributors: Subigya Paudel and Nhan Dinh
 	- Resolved the failing test case for the sign_in component. 
 	- Added more test cases
 
+- Backend
+	- Made more rest API endpoints for getting the game information, user information, and demand patterns
+	- Added tests. There were no functional tests in the code base that we got.
+	- Debugged the profile view in views.user_views.py
+
 - Documentation
 	- Structured in the documentation. Made separate sections for setup and running the application to avoid confusion.
 	- Added file structure hierarchy, thereby making it easier for one to see what each folder is related to.
-
-
-# End User Documentation
-
-As stated previously, our main focus was to implement a **_user-friendly interface_** with a somewhat **_minimalisitc_** design. The landing page consists of a Hero background video, to grab the attension of the user, with a brief introduction and a navigation button to start playing. The start playing button directs the user to the 'Player' Login page where they can enter their display name and the password, for a game session, provided by the host. The landing page also consists of a navigation bar with links to the following sections: What It Is, How To Play, Customizing Games, and Example Settings along with Host a Game button. To keep everything simple and clean, we have decided to implement minimal number of pages. Consequently, the sections on the navigation bar have been implemented on the landing page itself which act as a general information container.
-
-**What It Is**:
-Contains information on what the game is about and it's goal. A link to a detailed information page on the game will be provided after it's implementation.
-
-**How To Play**:
-Contains information on log in feature and how to join a game. Also, contains a navigation button to the Sign In page for convenience.
-
-**Customizing Games**:
-Conatins general information about the available settings and other features such as live analytics to the Host.
-
-**Example Settings**:
-Shows the user some examples of settings that they can configure as a Host.
-
-Again, going with the theme of user-friendliness, all of the informations have been provided with a illustrative svg to futher establish the feel of minimalism. All of the buttons have active property which, if hovered over, changes their color. To make switching pages effortless, we have implemented react-router. Also, the navigation bar has scrollspy implemented which automatically updates links in a navigation list based on the current scroll position. Furthermore, when a section on the nav bar is clicked, the website smoothly scrolls to the section. All of the pages currently implemented have a beer-case logo which scrolls the page to the top (if on home page) and directs to the home page (if on other page). There are many active elements on the website to keep the user engaged.
-
-Individual login pages for Host and Player has been implemented since the only fixed login property for player is the password while the Host has fixed username and password. The Host a Game navigation button directs the user to Sign Up page which also consists of a navigation link to the 'Host' Sign In page (Already have an account?) on the Sign Up box. Finally, we have also implemented a Footer on the bottom of the landing page with sample links since we don't have enough pages implemented.
-
-
-
+	- Added documentation for REST API endpoints in swagger, whereas only two REST API endpoints were documented in swagger before.
