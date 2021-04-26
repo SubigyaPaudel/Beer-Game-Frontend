@@ -1,27 +1,13 @@
 import json
 
+from django.test import TestCase
+
 from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.test import APITestCase
 
 from .models import User, Instructor, Player, Game, DemandPattern
 from .serializers import GameSerializer, InstructorSerializer, PlayerSerializer, UserLoginSerializer, UserSerializer, UserSignUpSerializer
-
-class UserSignUpTestCase(APITestCase):
-
-    def setUp(self):
-        user = User.objects.create_user(email="test1@localhost.com", password= "testpassword", username="test", role = 3)
-
-    def test_registration_exist_username(self):
-        data = {"username" : "test", "email": "test1@localhost.com", "password" : "testpassword", "role": 3}
-        reponse = self.client.post("/api/users/signup/", data)
-        self.assertEqual(reponse.status_code, status.HTTP_400_BAD_REQUEST)
-
-    def test_registration_new(self):
-        data = {"username" : "testcase", "email": "test@localhost.com", "password" : "testpassword", "role": 3}
-        response = self.client.post("/api/users/signup/", data)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
 
 class UserLogInTestCase(APITestCase):
 
@@ -51,6 +37,46 @@ class AuthGameListTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
         request = self.client.get('/api/users/games/')
         self.assertEqual(request.status_code, status.HTTP_200_OK)
+
+## DATABASE TESTS
+
+class test_chained_deletion(TestCase):
+        
+    #making sure that the chained deletion of the user object leads to the
+    #deletion of the instructor object that the original user object was connected
+    #to
+
+    def test_chained_deletion_instructor(self):
+        user = User.objects.create_user(email="test2@localhost.com", password= "testpassword", username="test2", role = 3)
+        newInstructor = Instructor(user = user)
+        newInstructor.save()
+        newuid = str(newInstructor.uid)
+        queryset = Instructor.objects.filter(uid = newuid)
+        #checking the that instrcutor was created
+
+        self.assertEqual(len(queryset),1)
+        user.delete()
+
+        #deleting the user object
+        queryset = Instructor.objects.filter(uid = newuid)
+
+        #checking that the instrcutor was deleted
+        self.assertEqual(len(queryset), 0)
+
+        
+    def test_chained_deletion_player(self):
+        #same logic as above
+        user = User.objects.create_user(email="test3@localhost.com", password= "testpassword", username="test3", role = 3)
+        newPlayer = Player(user = user)
+        newPlayer.save()
+        newuid = str(newPlayer.uid)
+        queryset = Player.objects.filter(uid = newuid)
+        self.assertEqual(len(queryset), 1)
+        user.delete()
+        queryset = Player.objects.filter(uid = newuid)
+        self.assertEqual(len(queryset), 0)
+
+    
 
 
 class UserAPITestCase(APITestCase):
