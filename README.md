@@ -57,6 +57,46 @@ Software requirements have already been explained in first assignment but, again
 | Communication  | REST API architecture |
 | Authentication | JSON Web Tokens (JWT) |
 
+
+# File Structure
+
+The work done in this sprint is located the beer_game directory and the mysql_setup directory. The old code base is simply the code base that we had inherited from the proevious sprint and can be used to compare the improvements made in this sprint
+
+<pre>
+    <code>
+      \- backend
+      	\- backend (contains server information)
+	 	|- settings.py (contains information about which database the backend should user, cors headers, allowed hosts etc.)
+		|- urls.py (contains information about which routes are supposed to be handled by which applications)
+	\- base
+		|- managers.py (class used to create a custom django user model)
+		|- models.py (the orms/models that the backend uses are defined here)
+		|- serializers.py (the serializers that convert our models to json and perform validity checks are defined here)
+		|- test_general.py (contains backend tests)
+		\-urls
+			|- user_urls.py (delegates the handling of requests on specific routes to different views)
+		\- views
+			|- user_views.py (views that user_urls.py use are defined here)
+      \- frontend
+      	\- public (directory that contains the static files used by our react components/pages)
+	\- src (the source folder)
+		\- actions (contains all the redux action creators used by the frontend)
+		\- components (contains all the components used by the index/landing page of the application)
+		\- constants (contains application-wide constants like action names, and the API url)
+		\- images (contains all the images used by the landing page of the application)
+		\- reducers (contains the reducers used by the application. index.js exports the combined reducer)
+		\- services (contains functions that make api calls, and interact with the localstorage)
+		\- videos (contains the video used in the landing page of the application)
+		\- pages (the .js files used here are the pages used in the landing page of the application)
+			\- Instructor (Contains all the pages, tests and components related to the the instructor-signed-in view)
+			\- Player (Contains all the pages, tests and components related to the player-signed-in-view)
+      \- mysql-setup
+      \- requirements.txt (backend dependencies)
+      
+    </code>
+</pre>
+
+
 # Setup and Deployment
 
 ### Setup backend
