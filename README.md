@@ -11,6 +11,7 @@
   - [Introduction](#introduction)
   - [Software requirements](#software-requirements)
   - [Architecture](#architecture)
+  - [File Structure](#file-structure)
   - [Setup and Deployment](#setup-and-deployment)
     - [Setup backend](#setup-backend)
     - [Setup frontend](#setup-frontend)
@@ -47,7 +48,7 @@ Software requirements have already been explained in first assignment but, again
 - Once the game starts, the player screen is split up in 4 quadrants with each quadrant serving a specific purpose.
 - The user will be able to access “What it is” and “How to Play” sections for additional information regarding the supply-chain game.
 
-## Architecture
+# Architecture
 
 | Component      | Implementation        |
 | -------------- | --------------------- |
