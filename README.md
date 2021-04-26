@@ -240,9 +240,15 @@ Contributors: Subigya Paudel and Nhan Dinh
 	- Resolved the failing test case for the sign_in component. 
 	- Added more test cases
 
+- Backend
+	- Made more rest API endpoints for getting the game information, user information, and demand patterns
+	- Added tests. There were no functional tests in the code base that we got.
+	- Debugged the profile view in views.user_views.py
+
 - Documentation
 	- Structured in the documentation. Made separate sections for setup and running the application to avoid confusion.
 	- Added file structure hierarchy, thereby making it easier for one to see what each folder is related to.
+	- Added documentation for REST API endpoints in swagger, whereas only two REST API endpoints were documented in swagger before.
 
 
 # End User Documentation
