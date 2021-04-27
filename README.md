@@ -90,6 +90,8 @@ Software requirements have already been explained in first assignment but, again
 			\- Instructor (Contains all the pages, tests and components related to the the instructor-signed-in view)
 			\- Player (Contains all the pages, tests and components related to the player-signed-in-view)
       \- mysql-setup
+      	|- setup.sql (the script used for setting the database for the django backend)
+	|- reset.sql (the script used for removing all the databases and credentials tha django uses if one needs to reset the entire application)
       \- requirements.txt (backend dependencies)
       
     </code>
