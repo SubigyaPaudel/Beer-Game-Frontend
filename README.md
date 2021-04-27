@@ -271,17 +271,20 @@ Due to time limit, we have only developed basic testing with few test cases for 
 ## Sprint 4
 Contributors: Subigya Paudel and Nhan Dinh
 - Frontend
-	- Created more pages to be displayed when the user is signed up (as an instructor or as a player), managed the routing on these pages as well, so that logged in users 		are redirected to their respective pages.
+	- Created more pages to be displayed when the user is signed up (as an instructor or as a player), managed the routing on these pages as well, so that logged in users are redirected to their respective pages.
 	- Made use of the authentication services immplmented in the last codebase to redirect users to appropriate signed-in pages
-	- Resolved a bug with the reducer. The data in the localstorage was not being taken into account while initializing the redux store. This led to users who were already signed in being marked as unauthenticated and being sent back to the landing page of the application when the page was reloaded.
+	- Resolved a bug with the reducer. The data in the localstorage was not being taken into account while initializing the redux store. This led to users who were already signed in being marked as authenticated and being sent back to the landing page of the application when the page was reloaded.
 	- Took the game screen from the last sprint to its proper place in the page which players can access when they are logged in. Made this page more dynamic, as in being able to plot graphs for various quantities(demand, orders, and inventory). Added some support to the page for polling the server as to the status of the game that is being played.
 	- Resolved the failing test case for the sign_in component. 
-	- Added more test cases
+	- Added more test cases 
+	- The sign-in and the sign-up buttons were not explicitly present in the frontend of the application. Thus we made the buttons that redirected to those pages more explicit, and thus increased the user-friendliness of the application.
+	- 
 
 - Backend
 	- Made more rest API endpoints for getting the game information, user information, and demand patterns. In the process of doing so we made use of the JSON web tokens employed in the last sprint for authentication of users.
 	- Added various types of tests ranging from database tests to api tests. There were no functional tests in the code base that we got.
-	- Debugged the profile view in views.user_views.py.
+	- Debugged the profile view in views.user_views.py
+	- Added mysql scripts to make the process of deploying the application easier. We have also added reset.sql, in case the user wants to clasn all the aspects of the mysql database that django uses.
 
 - Documentation
 	- Structured in the documentation. Made separate sections for setup and running the application to avoid confusion.
