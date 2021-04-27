@@ -172,7 +172,7 @@ npm start
 cd backend
 python3 manage.py runserver
 ````
-- The frontend should ideally run at http://localhost:3000 and the backend django server should ideally run at http://127.0.0.1:8000. Ports can change if the ports were being used by other applications
+- The frontend should ideally run at http://localhost:3000 and the backend django server should ideally run at http://127.0.0.1:8000. Ports can change if the ports are being used by other applications
 
 # Tests
 
