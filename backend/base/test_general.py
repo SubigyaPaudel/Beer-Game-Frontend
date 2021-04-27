@@ -9,6 +9,21 @@ from rest_framework.test import APITestCase
 from .models import User, Instructor, Player, Game, DemandPattern
 from .serializers import GameSerializer, InstructorSerializer, PlayerSerializer, UserLoginSerializer, UserSerializer, UserSignUpSerializer
 
+class UserSignUpTestCase(APITestCase):
+
+    def setUp(self):
+        user = User.objects.create_user(email="test@localhost.com", password="testpassword", username="testuser")
+
+    def test_signup_new(self):
+        data = {"email": "test1@localhost.com", "password" : "testpassword", "username": "username", "role": 2}
+        response = self.client.post("/api/users/signup/", data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_signup_exist(self):
+        data = {"email": "test@localhost.com", "password" : "testpassword", "username": "user", "role": 2}
+        response = self.client.post("/api/users/signup/", data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
 class UserLogInTestCase(APITestCase):
 
     def setUp(self):
@@ -19,6 +34,15 @@ class UserLogInTestCase(APITestCase):
         response = self.client.post("/api/users/login/", data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_login_not_exist_email(self):
+        data = {"email": "test@localhost.com", "password" : "testpassword1"}
+        response = self.client.post("/api/users/login/", data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_login_wrong_password(self):
+        data = {"email": "test1@localhost.com", "password" : "testpassword"}
+        response = self.client.post("/api/users/login/", data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 class AuthGameListTestCase(APITestCase):
     # Set up before each test
@@ -75,35 +99,6 @@ class test_chained_deletion(TestCase):
         user.delete()
         queryset = Player.objects.filter(uid = newuid)
         self.assertEqual(len(queryset), 0)
-
-    
-
-
-class UserAPITestCase(APITestCase):
-    # Set up before each test
-    def setUp(self):
-        pass
-
-    def test_GET_user(self):
-        pass
-
-
-class InstructorAPITestCase(APITestCase):
-    # Set up before each test
-    def setUp(self):
-        pass
-
-    def test_GET_instructor(self):
-        pass
-
-
-class PlayerAPITestCase(APITestCase):
-    # Set up before each test
-    def setUp(self):
-        pass
-
-    def test_GET_player(self):
-        pass
 
 
 class GameAPITestCase(APITestCase):
