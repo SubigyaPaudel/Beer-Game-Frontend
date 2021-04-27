@@ -122,7 +122,7 @@ const EditGames = () => {
     return () => {
       abortConst.abort();
     };
-  }, [wholesalerPresent, distributorPresent]);
+  }, []);
 
   const handleSubmit = (event) => {
     document.getElementById("game_name").classList.remove("is-invalid");

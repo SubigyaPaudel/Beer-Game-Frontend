@@ -2,7 +2,6 @@ import Sidebar from "./components/sidebar";
 import Player_Navbar from "./components/player_navbar";
 import My_Games from "./components/my_games";
 import MyInstructors from "./components/my_instructors";
-import Settings from "./components/settings";
 import GamePage from "./components/Gamepage/index";
 import "./Player_Page.css";
 import {
@@ -62,9 +61,6 @@ const Player_Page = () => {
               </Route>
               <Route exact path={`${path}/my_instructors`}>
                 <MyInstructors />
-              </Route>
-              <Route exact path={`${path}/settings`}>
-                <Settings />
               </Route>
               <Route path={`${path}/gamepage/:id`} component={GamePage} />
               <Route exact path={`${path}`}>

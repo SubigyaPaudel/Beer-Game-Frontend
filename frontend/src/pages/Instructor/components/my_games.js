@@ -1,7 +1,7 @@
 import "./my_games.css";
 import { useEffect, useState } from "react";
 import { Accordion, Card, Button } from "react-bootstrap";
-import { useHistory } from "react-router";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 /**
  * Renders an card for a single game
@@ -10,6 +10,7 @@ import { useHistory } from "react-router";
  */
 
 const OneGame = ({ data }) => {
+  const {url, path} = useRouteMatch();
   const history = useHistory();
   const pause_this_game = (event) => {
     const game_id = event.target.dataset.game_id;
@@ -41,7 +42,7 @@ const OneGame = ({ data }) => {
         messages.innerHTML = "";
       }, 2000);
     } else {
-      history.push(`/edit_game/:${game_id}`);
+      history.push(`${path}/edit_game/:${game_id}`);
     }
   };
   return (
