@@ -3,6 +3,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from django.utils.decorators import method_decorator
+from rest_framework.decorators import api_view, action
+
+from drf_yasg import openapi
+
 from base.serializers import (
     UserSerializer,
     InstructorSerializer,
@@ -10,21 +17,40 @@ from base.serializers import (
     UserSignUpSerializer,
     UserLoginSerializer,
     GameSerializer,
-    # GameCreateSerializer,
     DemandPatternSerializer,
 )
 
 from base.models import User, Instructor, Player, DemandPattern, Game
 
 class UserSignUpView(APIView):
+    """
+    This api allow users to create account 3.
+    """
     serializer_class = UserSignUpSerializer
     # Allow everyone (authenticated or not) to access this view
     permission_classes = (AllowAny,)
-
+    
     # POST request handler
+    # @swagger_auto_schema(method='post', operation_description="This api allow users to create account", request_body=serializer_class)
+    #, query_serializer=serializer_class) 
+    # @api_view(['POST', 'GET'])
+    # @method_decorator(api_view(['GET', 'POST']))
+    @swagger_auto_schema(operation_description="This api allow users to create account",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'username': openapi.Schema(type=openapi.TYPE_STRING),
+                'email': openapi.Schema(type=openapi.TYPE_STRING),
+                'password': openapi.Schema(type=openapi.TYPE_STRING),
+                'role': openapi.Schema(type=openapi.TYPE_INTEGER, default=2)
+            },
+            required=['email', 'password']
+        ),
+        repsonse={200: UserSignUpSerializer})
     def post(self, request):
         # Serialize and validate data
-        serializer = self.serializer_class(data=request.data)
+        print(request.data)
+        serializer = self.serializer_class(data=request.data)   
         is_valid = serializer.is_valid(raise_exception=True)
 
         if is_valid:
@@ -54,6 +80,15 @@ class UserLoginView(APIView):
     permission_classes = (AllowAny,)
 
     # POST request handler
+    @swagger_auto_schema(operation_description="This api allow users to log in to the account",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'email': openapi.Schema(type=openapi.TYPE_STRING),
+                'password': openapi.Schema(type=openapi.TYPE_STRING),
+            },
+            required=['email', 'password']
+        )) 
     def post(self, request):
         # Serialize and validate data
         serializer = self.serializer_class(data=request.data)
@@ -84,6 +119,8 @@ class AuthUserProfileView(APIView):
     # serializer_class =
     permission_classes = (IsAuthenticated,)
 
+    @swagger_auto_schema(operation_description="This api allow users to view their profile after login", 
+        responses={200: UserSerializer(many=True)})
     def get(self, request):
         response = dict()
         status_code = status.HTTP_200_OK
@@ -151,6 +188,8 @@ class AuthGameListView(APIView):
     permission_classes = (IsAuthenticated,)
 
     # GET request handler
+    @swagger_auto_schema(operation_description="This api allow users to view the games",
+        response={200: serializer_class}) 
     def get(self, request,format=None):
         # Temporary data needed
 
@@ -216,6 +255,28 @@ class AuthGameListView(APIView):
         return Response(response, status=status_code)
 
     ##Creating a Game
+    @swagger_auto_schema(operation_description="This api allow users to create account",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'instructor': openapi.Schema(type=openapi.TYPE_STRING),
+                'demandpattern': openapi.Schema(type=openapi.TYPE_STRING),
+
+                'session_length': openapi.Schema(type=openapi.TYPE_INTEGER, default=0),
+                'distributor_present': openapi.Schema(type=openapi.TYPE_BOOLEAN, default=False),
+                'wholesaler_present': openapi.Schema(type=openapi.TYPE_BOOLEAN, default=False),
+                'holding_cost': openapi.Schema(type=openapi.TYPE_NUMBER, default=0),
+                'backlog_cost': openapi.Schema(type=openapi.TYPE_NUMBER, default=0),
+                'active': openapi.Schema(type=openapi.TYPE_BOOLEAN, default=False),
+                'info_sharing': openapi.Schema(type=openapi.TYPE_BOOLEAN, default=False),
+                'info_delay': openapi.Schema(type=openapi.TYPE_INTEGER, default=2),
+                'rounds_completed': openapi.Schema(type=openapi.TYPE_INTEGER, default=0),
+                'is_default_game': openapi.Schema(type=openapi.TYPE_BOOLEAN, default=False),
+                'starting_inventory': openapi.Schema(type=openapi.TYPE_INTEGER, default=12),
+                'player_weeks': openapi.Schema(type=openapi.TYPE_INTEGER)
+            },
+            required=['demandpatter', 'player_weeks']
+        ))
     def post(self,request):
         user = request.user
         status_code = status.HTTP_200_OK
@@ -305,11 +366,13 @@ class AuthDemandPatternView(APIView):
     permission_classes = (IsAuthenticated,)
 
     # GET request handler
+    @swagger_auto_schema(operation_description="This api allow intructors to create demand pattern",
+        response={200: serializer_class}) 
     def get(self, request, format=None):
         user = request.user
         status_code = status.HTTP_200_OK
         message=''
-        ##only admin and intructor can check demand patterns
+        ##only intructor can check demand patterns
         if user.role == 2:
             instructor = Instructor.objects.get(user=user)
             patterns = DemandPattern.objects.filter(instructor=instructor)
@@ -346,6 +409,18 @@ class AuthDemandPatternView(APIView):
 
 
     # POST request handler
+    @swagger_auto_schema(operation_description="This api allow users to view their demand patterns",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'name': openapi.Schema(type=openapi.TYPE_STRING),
+                'weeks': openapi.Schema(type=openapi.TYPE_INTEGER),
+                'demand': openapi.Schema(type=openapi.TYPE_STRING),
+                'related_games': openapi.Schema(type=openapi.TYPE_STRING)
+            },
+            required=['weeks']
+        )) 
+    # @api_view(['POST'])
     def post(self, request):
         user = request.user
         status_code = status.HTTP_200_OK
