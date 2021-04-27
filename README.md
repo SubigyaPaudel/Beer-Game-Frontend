@@ -273,17 +273,19 @@ Contributors: Subigya Paudel and Nhan Dinh
 - Frontend
 	- Created more pages to be displayed when the user is signed up (as an instructor or as a player), managed the routing on these pages as well, so that logged in users 		are redirected to their respective pages.
 	- Made use of the authentication services immplmented in the last codebase to redirect users to appropriate signed-in pages
-	- Resolved a bug with the reducer. The data in the localstorage was not being taken into account while initializing the redux store.
-	- Took the game screen from the last sprint to its proper place in the page which players can access when they are logged in. Made this page more dynamic, as in being 		able to plot graphs for various quantities(demand, orders, and inventory). Added some support to the page for polling the server as to the status of the game that is 		being played.
+	- Resolved a bug with the reducer. The data in the localstorage was not being taken into account while initializing the redux store. This led to users who were already signed in being marked as unauthenticated and being sent back to the landing page of the application when the page was reloaded.
+	- Took the game screen from the last sprint to its proper place in the page which players can access when they are logged in. Made this page more dynamic, as in being able to plot graphs for various quantities(demand, orders, and inventory). Added some support to the page for polling the server as to the status of the game that is being played.
 	- Resolved the failing test case for the sign_in component. 
 	- Added more test cases
 
 - Backend
-	- Made more rest API endpoints for getting the game information, user information, and demand patterns
-	- Added tests. There were no functional tests in the code base that we got.
-	- Debugged the profile view in views.user_views.py
+	- Made more rest API endpoints for getting the game information, user information, and demand patterns. In the process of doing so we made use of the JSON web tokens employed in the last sprint for authentication of users.
+	- Added various types of tests ranging from database tests to api tests. There were no functional tests in the code base that we got.
+	- Debugged the profile view in views.user_views.py.
 
 - Documentation
 	- Structured in the documentation. Made separate sections for setup and running the application to avoid confusion.
 	- Added file structure hierarchy, thereby making it easier for one to see what each folder is related to.
 	- Added documentation for REST API endpoints in swagger, whereas only two REST API endpoints were documented in swagger before.
+	- 
+**NOTE**: The REST api endpoints and the frontend have not been connected in this sprint. We spend a lot on completing the entire frontend and the setting up the backend and thus, **were not able to integrate the frontend and the backend due to time constraints**. However, you can check whether the REST API endpoints are working or not using **POSTMAN**.
