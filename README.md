@@ -290,5 +290,5 @@ Contributors: Subigya Paudel and Nhan Dinh
 	- Structured in the documentation. Made separate sections for setup and running the application to avoid confusion.
 	- Added file structure hierarchy, thereby making it easier for one to see what each folder is related to.
 	- Added documentation for REST API endpoints in swagger, whereas only two REST API endpoints were documented in swagger before.
-	- 
+ 
 **NOTE**: The REST api endpoints and the frontend have not been connected in this sprint. We spend a lot on completing the entire frontend and the setting up the backend and thus, **were not able to integrate the frontend and the backend due to time constraints**. However, you can check whether the REST API endpoints are working or not using **POSTMAN**.
