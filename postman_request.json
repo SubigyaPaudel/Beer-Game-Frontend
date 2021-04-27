@@ -1,0 +1,319 @@
+{
+	"info": {
+		"_postman_id": "38425902-e32c-462c-b91b-f8a394d2c550",
+		"name": "Beergame",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Signup Instructor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"instructor1\",\n    \"email\": \"instructor1@gmail.com\",\n    \"password\": \"1234567\",\n    \"role\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users/signup/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"signup",
+						""
+					]
+				},
+				"description": "Send a post request to http://localhost:8000/api/users/signup/\n\nThe body of the post request should be json and includes 4 fields (corresponding to the User model): \n    \n    -\"username\": string\n    -\"email\": string\n    -\"password\": string\n    -\"role\": integer\n\nReponse:\n- 201 Created: create user successful\n- 400 Bad Request: any error"
+			},
+			"response": []
+		},
+		{
+			"name": "Signup Player",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"player2\",\n    \"email\": \"player2@gmail.com\",\n    \"password\": \"1234567\",\n    \"role\": \"3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users/signup/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"signup",
+						""
+					]
+				},
+				"description": "Send a post request to http://localhost:8000/api/users/signup/\n\nThe body of the post request should be json and includes 4 fields (corresponding to the User model): \n    \n    -\"username\": string\n    -\"email\": string\n    -\"password\": string\n    -\"role\": integer\n\nReponse:\n- 201 Created: create user successful\n- 400 Bad Request: any error"
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"instructor1@gmail.com\",\n    \"password\": \"1234567\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"login",
+						""
+					]
+				},
+				"description": "Send a post request to http://localhost:8000/api/users/login\n\nThe body of the post request should be json and includes 4 fields: \n    \n    -\"email\": string\n    -\"password\": string\n\nReponse:\n- 200 Ok along with the access and refresh token and the role of user: user login successful\n- 400 Bad Request: any error"
+			},
+			"response": []
+		},
+		{
+			"name": "Take token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"instructor1@gmail.com\",\n    \"password\": \"1234567\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/token/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"token",
+						""
+					]
+				},
+				"description": "Send a post request to http://localhost:8000/api/token/\n\nThe body of the post request should be json and includes 2 fields: \n    \n    -\"email\": string\n    -\"password\": string\n\nReponse:\n- 201 Created along with access and refresh token: create user successful\n- 400 Bad Request: any error"
+			},
+			"response": []
+		},
+		{
+			"name": "Demand pattern list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE5NjE2MTUwLCJqdGkiOiI5ZGJiZmI5MDcwNmQ0YmExOWQzNTU0OGIwMzdiZjhlMCIsInVzZXJfaWQiOjEwfQ.fe3VXhHAQMNECFHX_EWWyuhwEypX9HiiMAri3RF8ILY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/users/pattern/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"pattern",
+						""
+					]
+				},
+				"description": "Send a get request to http://localhost:8000/api/users/pattern/\n\nAuthurization using bearer authentication with the token can be found by the \"Take token\" request\n\nReponse:\n- 200 Ok along with the list of demand patterns: fetch demand pattern successful\n- 401 Unauthorized: user not allowed to fetch demand pattern or invalid token\n- 400 Bad Request: other errors "
+			},
+			"response": []
+		},
+		{
+			"name": "Demand pattern create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE5NjM1NDQyLCJqdGkiOiIwZWY3NjFmZjJjZjU0NGRiOTliNmQ4NjNiMGFiNDUzMiIsInVzZXJfaWQiOjEwfQ.4Oo8ZavXaqHWxyobRbNMJ8gXx202xF0aUry-kZD57vI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"test3\",\n    \"weeks\": \"13\",\n    \"demand\": \"1,1,1,1,1,1,1,1,1,1,1,1,1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users/pattern/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"pattern",
+						""
+					]
+				},
+				"description": "Send a post request to http://localhost:8000/api/users/pattern/\n\nThe body of the post request should be json and includes 4 fields (corresponding to the DemandPattern model): \n    \n    -\"name\": string\n    -\"weeks\": integer\n    -\"demand\": string\n    -\"related_games\": integer\nThe fields \"name\" and \"weeks\" are required\n\nAuthurization using bearer authentication with the token can be found by the \"Take token\" request\n\nReponse:\n- 201 Created: create demand pattern successful\n- 401 Unauthorized: user not allowed to create demand pattern or invalid token\n- 400 Bad Request: other errors"
+			},
+			"response": []
+		},
+		{
+			"name": "User profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE5NjEyMzQxLCJqdGkiOiJmM2Y3YWM1MmNhODY0Njg3YTY2YWFhMTU5NTJlNTkxOSIsInVzZXJfaWQiOjd9.6fctnQljUbe64kOCPptMZBmrn9lmzXPVfkipdK8essk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/users/profile/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"profile",
+						""
+					]
+				},
+				"description": "Send a get request to http://localhost:8000/api/users/profile/\n\nAuthurization using bearer authentication with the token can be found by the \"Take token\" request\n\nReponse:\n- 200 Ok along with the profile of the user: user succesfully authenticate and allow to see their profile\n- 401 Unauthorized: invalid token or user not authenticated\n- 400 Bad Request: other errors"
+			},
+			"response": []
+		},
+		{
+			"name": "Game list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE5NTQ5NjcxLCJqdGkiOiI5Yzc2YTE2NDljZjg0NjA4OTNlOWVmMGEwNWY0Y2U1NCIsInVzZXJfaWQiOjJ9.Vk0tlLdmHMSRrXO8_LjarewaLYCahHkeEIdsl63P1aM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/users/games/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"games",
+						""
+					]
+				},
+				"description": "Send a get request to http://localhost:8000/api/users/games/\n\nAuthurization using bearer authentication with the token can be found by the \"Take token\" request\n\nReponse:\n- 200 Ok along with the list of games: fetch game successful\n- 401 Unauthorized: user not allowed to fetch game or invalid token\n- 400 Bad Request: other errors "
+			},
+			"response": []
+		},
+		{
+			"name": "Game create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE5NTQ5NjcxLCJqdGkiOiI5Yzc2YTE2NDljZjg0NjA4OTNlOWVmMGEwNWY0Y2U1NCIsInVzZXJfaWQiOjJ9.Vk0tlLdmHMSRrXO8_LjarewaLYCahHkeEIdsl63P1aM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"demandpattern\": \"5e74087c-a757-48a0-8f12-260187c45216\",\n    \"player_weeks\": \"0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users/games/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"games",
+						""
+					]
+				},
+				"description": "Send a post request to http://localhost:8000/api/users/games/\n\nThe body of the post request should be json and includes these fields (corresponding to the Game model): \n    \n    -\"demandpattern\": string\n    -\"session_length\": integer\n    -\"distributor_present\": boolean\n    -\"wholesaler_present\": boolean\n    -\"holding_cost\": floating point number\n    -\"backlog_cost\": floating point number\n    -\"active\": boolean\n    -\"info_sharing\": boolean\n    -\"info_delay\": integer\n    -\"rounds_completed\": integer\n    -\"is_default_game\": boolean\n    -\"starting_inventory\": integer\n    -\"player_weeks\": integer\nThe fields \"demandpattern\" and \"player_weeks\" are required. The demandpattern field requires the id of an existing demandpattern which can be taken by using the \"Demand pattern list\" request\n\nAuthurization using bearer authentication with the token can be found by the \"Take token\" request\n\nReponse:\n- 201 Created: create demand pattern successful\n- 401 Unauthorized: user not allowed to create demand pattern or invalid token\n- 400 Bad Request: other errors"
+			},
+			"response": []
+		}
+	]
+}

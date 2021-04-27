@@ -286,6 +286,7 @@ class AuthGameListView(APIView):
             request.data["instructor"] = instructor.uid
             demandpatterns = DemandPattern.objects.filter(instructor=instructor)
             
+            # The following code is trying to ensure that the demand pattern belong to the right instrutor
             # flag = True
             # if not demandpatterns:
             #     flag = False
@@ -294,6 +295,7 @@ class AuthGameListView(APIView):
             # else:
             #     for demandpattern in demandpatterns:
             #         if 
+            
             # the demand pattern id has to be provided in this data
             serializer = self.serializer_class(data=request.data)
             is_valid = serializer.is_valid(raise_exception=True)
