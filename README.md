@@ -122,8 +122,8 @@ sudo apt install python3.8 #install python3
 ````bash
 python3 -m venv myenv
 source myenv/bin/activate
-pip install wheel                           # Compatibility issues might arise
-pip install -r requirements.txt
+pip3 install wheel                           # Compatibility issues might arise
+pip3 install -r requirements.txt
 ````
 
 #### Setup database 
