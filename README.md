@@ -278,7 +278,7 @@ Contributors: Subigya Paudel and Nhan Dinh
 	- Resolved the failing test case for the sign_in component. 
 	- Added more test cases 
 	- The sign-in and the sign-up buttons were not explicitly present in the frontend of the application. Thus we made the buttons that redirected to those pages more explicit, and thus increased the user-friendliness of the application.
-	- 
+	- Redirected the users to the sign-in page immmediately after they have signed up to increase user-friendliness.
 
 - Backend
 	- Made more rest API endpoints for getting the game information, user information, and demand patterns. In the process of doing so we made use of the JSON web tokens employed in the last sprint for authentication of users.
